@@ -19,11 +19,11 @@ namespace W6D2_Training_Ses2
             Console.WriteLine("Printing content of text file");
             sr.BaseStream.Seek(0, SeekOrigin.Begin);
             string str = sr.ReadLine();
-            while(str!=null)
-            {
-                Console.WriteLine(str);
-                str = sr.ReadLine();
-            }
+            //while(str!=null)
+            //{
+            //    Console.WriteLine(str);
+            //    str = sr.ReadLine();
+            //}
             sr.Close();
             fs.Close();
             Console.ReadLine();
