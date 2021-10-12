@@ -12,13 +12,19 @@ namespace W6D2_Training_Ses2
         static void Main(string[] args)
         {
             //file handling examples
-            //WriteinFile();
-            
+            WriteinFile();
+
+            ReadfromFile();
+        }
+
+        private static void ReadfromFile()
+        {
             FileStream fs = new FileStream("SampleTest.txt", FileMode.Open, FileAccess.ReadWrite);
             StreamReader sr = new StreamReader(fs);
             Console.WriteLine("Printing content of text file");
             sr.BaseStream.Seek(0, SeekOrigin.Begin);
-            string str = sr.ReadLine();
+            string str = sr.ReadToEnd();
+            Console.WriteLine(str);
             //while(str!=null)
             //{
             //    Console.WriteLine(str);
@@ -31,14 +37,19 @@ namespace W6D2_Training_Ses2
 
         private static void WriteinFile()
         {
-            FileStream fs = new FileStream("SampleTest.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite); // opens the file in readwrite format
+            FileStream fs = new FileStream("SampleTest.txt", FileMode.Create, FileAccess.ReadWrite); // this is to overwrite the file... just use the same filename
+            //FileStream fs = new FileStream("SampleTest.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite); // opens the file in readwrite format
             StreamWriter streamWriter = new StreamWriter(fs);   //to write in the file, we need the steamwriter
 
-            Console.WriteLine("Enter the text u want to write ");
-            var str = Console.ReadLine();
+            Console.WriteLine("Enter the text1 u want to write ");
+            var str1 = Console.ReadLine();
 
-            streamWriter.WriteLine(str);
-            streamWriter.Flush();   //waits for writer to finish writing in the file
+            Console.WriteLine("Enter the text2 u want to write ");
+            var str2 = Console.ReadLine();
+
+            streamWriter.WriteLine(str1);
+            streamWriter.WriteLine(str2);
+            streamWriter.Flush();   //waits for writer to finish writing in the file --> it will push all the bytes before u close
             streamWriter.Close();   //
             fs.Close();
         }
