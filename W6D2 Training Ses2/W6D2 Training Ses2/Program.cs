@@ -7,16 +7,90 @@ using System.Threading.Tasks;
 
 namespace W6D2_Training_Ses2
 {
+    /*
+ user to option --> to create a file. user passes a file Name,
+* read
+* write (overwrite all data)
+* write at end (append)
+ */
     class Program
     {
         static void Main(string[] args)
         {
             //file handling examples
-            WriteinFile();
+            //WriteinFile();
 
-            ReadfromFile();
+            //ReadfromFile();
+
+            bool to_continue = true;
+            while(to_continue == true)
+            {
+              
+                WriteFileData();
+                ReadFileData();
+                OverWriteData();
+                ReadFileData();
+                WriteAtEnd();
+                ReadFileData();
+             
+            }
+         
         }
 
+        private static void WriteFileData()
+        {
+            FileStream fs = new FileStream("File Handling Example.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            fs.Seek(0, SeekOrigin.End);
+            StreamWriter streamWriter = new StreamWriter(fs);
+            Console.WriteLine("Write anything here ");
+            var str = Console.ReadLine();
+            streamWriter.WriteLine(str);
+            streamWriter.Flush();   
+            streamWriter.Close();   
+            fs.Close();
+        }
+
+
+        private static void ReadFileData()
+        {
+            FileStream fs = new FileStream("File Handling Example.txt", FileMode.Open, FileAccess.ReadWrite);
+            StreamReader sr = new StreamReader(fs);
+            Console.WriteLine("\nRead what you wrote");
+            sr.BaseStream.Seek(0, SeekOrigin.Begin);
+            string str = sr.ReadLine();
+            while (str != null)
+            {
+                Console.WriteLine(str);
+                str = sr.ReadLine();
+            }
+            sr.Close();
+            fs.Close();
+            Console.ReadLine();
+        }
+
+        private static void OverWriteData()
+        {
+            FileStream fs = new FileStream("File Handling Example.txt", FileMode.Create, FileAccess.ReadWrite);
+            StreamWriter streamWriter = new StreamWriter(fs);
+            Console.WriteLine("\nWrite to OVERWRITE ");
+            var str = Console.ReadLine();
+            streamWriter.WriteLine(str);
+            streamWriter.Flush();
+            streamWriter.Close();
+            fs.Close();
+        }
+
+        private static void WriteAtEnd()
+        {
+            FileStream fs = new FileStream("File Handling Example.txt", FileMode.Append, FileAccess.Write);
+            StreamWriter streamWriter = new StreamWriter(fs);
+            Console.WriteLine("\nWrite at the end ");
+            var str = Console.ReadLine();
+            streamWriter.WriteLine(str);
+            streamWriter.Flush();
+            streamWriter.Close();
+            fs.Close();
+        }
         private static void ReadfromFile()
         {
             FileStream fs = new FileStream("SampleTest.txt", FileMode.Open, FileAccess.ReadWrite);
@@ -55,3 +129,4 @@ namespace W6D2_Training_Ses2
         }
     }
 }
+
